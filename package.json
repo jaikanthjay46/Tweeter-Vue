@@ -11,12 +11,14 @@
     "lint": "eslint --ext .js,.vue src test/unit",
     "serve": "vue-cli-service serve",
     "build": "node build/build.js",
-    "postinstall": "npm run build",
+    "postinstall": "node build/build.js",
     "start": "node server.js"
   },
   "dependencies": {
+    "firebase": "^5.5.9",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "vuefire": "^1.4.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
