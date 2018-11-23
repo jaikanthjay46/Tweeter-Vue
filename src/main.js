@@ -3,13 +3,19 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-
+import VueFire from 'vuefire'
+import firebase from 'firebase'
 Vue.config.productionTip = false
+Vue.use(VueFire)
+ 
+
+    /* eslint-disable no-new */
+   var  app = new Vue({
+      el: '#app',
+      router,
+      components: { App },
+      template: '<App/>'
+    })
 
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
-})
+
