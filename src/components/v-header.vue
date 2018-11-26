@@ -14,6 +14,9 @@
 							<router-link v-if="!isLoggedIn" tag="li" to="/login" class="nav-item" active-class="active">
 								<a class="nav-link">Login</a>
 							</router-link>
+							<router-link v-if="!isLoggedIn" tag="li" to="/signup" class="nav-item" active-class="active">
+								<a class="nav-link">Register</a>
+							</router-link>
 							<li v-on:click="logout()" v-if="isLoggedIn" class="nav-item btn btn-danger ml-4">
 								Logout
 							</li>
