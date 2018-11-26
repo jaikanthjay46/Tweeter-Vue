@@ -11,6 +11,12 @@
 							<router-link tag="li" to="/" class="nav-item" active-class="active">
 								<a class="nav-link">Home</a>
 							</router-link>
+							<router-link v-if="!isLoggedIn" tag="li" to="/login" class="nav-item" active-class="active">
+								<a class="nav-link">Login</a>
+							</router-link>
+							<li v-on:click="logout()" v-if="isLoggedIn" class="nav-item btn btn-danger ml-4">
+								Logout
+							</li>
 				  </ul>				  
 				</div>
 		</nav>
@@ -18,11 +24,28 @@
 
 <script>
 /* eslint-disable */
+import firebase from '@/firebase.js'
+import router from '@/router'
+
 export default {
 	name: "v-header",
+	watch: {
+		'$route': function () {
+				this.isLoggedIn = firebase.auth().currentUser !== null
+		}
+	},
+	
+	methods: {
+		logout: function() {
+			firebase.auth().signOut().then( () => {
+				router.push({ name: 'Login' })
+			});
+		}
+	},
   data () {
     return { 
-			title: "Tweeter"
+			title: "Tweeter",
+			isLoggedIn: firebase.auth().currentUser !== null
 		}
   }
 }

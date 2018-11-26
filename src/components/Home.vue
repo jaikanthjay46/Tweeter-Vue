@@ -10,7 +10,7 @@
 				</h5>
 				<ul class="list-group">
 					<li class="list-group-item" v-for="topic in topics">
-						{{ topic[".key"] }}
+						<router-link :to="'/topics/' + topic['.key']">{{ topic[".key"] }}</router-link>
 					</li>
 				</ul>
 			</div>
@@ -64,21 +64,21 @@ export default {
     }
   },
   methods: {
-	tweet: function()  {
-		console.log(this.tweetMsg)
-		var topics = this.tweetMsg.match(/#[^\s]*/g);
-		var tweetid = fb.database().ref().child('tweets').push().key;
+		tweet: function()  {
+			console.log(this.tweetMsg)
+			var topics = this.tweetMsg.match(/#[^\s]*/g);
+			var tweetid = fb.database().ref().child('tweets').push().key;
 
-		var updates = {};
-		updates['/tweets/' + tweetid] = { tweet: this.tweetMsg, name: this.name} ;
-		if(topics){
-			for ( let topic of topics ){
-				fb.database().ref().child('/topics/'+ topic.substr(1)).push(tweetid)
+			var updates = {};
+			updates['/tweets/' + tweetid] = { tweet: this.tweetMsg, name: this.name} ;
+			if(topics){
+				for ( let topic of topics ){
+					fb.database().ref().child('/topics/'+ topic.substr(1)).push({ tweet: this.tweetMsg, name: this.name})
+				}
 			}
-		}
 
-		fb.database().ref().update(updates);
-	}
+			fb.database().ref().update(updates);
+		}
   },
   firebase: {
 	topics: fb.database().ref('/topics'),

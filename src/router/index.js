@@ -3,7 +3,8 @@ import Router from 'vue-router'
 import Home from '@/components/Home.vue'
 import Login from '@/components/login.vue'
 import Signup from '@/components/signup.vue'
-import firebase from 'firebase'
+import TopicFeed from '@/components/TopicFeed.vue'
+import firebase from '@/firebase.js'
 
 Vue.use(Router)
 
@@ -16,6 +17,10 @@ let router =  new Router({
       meta: {
         requireAuth: true
       }
+    },
+    { 
+      path: '/topics/:topic', 
+      component: TopicFeed 
     },
     {
       path: '/',
@@ -37,9 +42,10 @@ let router =  new Router({
 router.beforeEach((to, from, next) => {
   let user = firebase.auth().currentUser;
   let requiresAuth = to.matched.some(record => record.meta.requireAuth);
+  let isLogin = to.matched.some(record => record.name === 'Login');
 
   if (requiresAuth && !user) next('/login')
-  else if (!requiresAuth && user) next('/home')
+  else if(user && isLogin )  next('/home') 
   else next()
 })
 
