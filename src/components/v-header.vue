@@ -8,7 +8,7 @@
 				</button>			  
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				  <ul class="navbar-nav ml-auto">						
-							<router-link tag="li" to="/" class="nav-item" active-class="active">
+							<router-link tag="li" to="/home" class="nav-item" active-class="active">
 								<a class="nav-link">Home</a>
 							</router-link>
 							<router-link v-if="!isLoggedIn" tag="li" to="/login" class="nav-item" active-class="active">
